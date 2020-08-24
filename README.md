@@ -11,11 +11,11 @@ from trapz_error import Trapz
 # to None) or passing the uniform grid spacing dx (defaults to 1.0)
 tz = Trapz(ydata, x=xdata, dx=dx)
 
-# Given an initial value (defaults to 0.0), integrate using the 
-# cumulative trapezoidal rule
+# Integrate using the cumulative trapezoidal rule and set initial 
+# value (defaults to 0.0)
 tz.integrate(init)
 
-# Propagate errors associated with input ydata
+# Propagate the errors of input ydata
 tz.propagate(yerror)
 ```
 
