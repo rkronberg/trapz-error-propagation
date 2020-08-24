@@ -1,7 +1,7 @@
 import numpy as np
 from argparse import ArgumentParser
-from trapz_error import Trapz
 import matplotlib.pyplot as plt
+from trapz_error import Trapz
 
 def parse():
 
@@ -23,25 +23,28 @@ def main():
 
 	# Expects input shape (n, m) where n is the number 
 	# of samples and m = 3 (xdata, ydata, yerror)
-	xdata = np.loadtxt(inp, usecols=[0])
-	ydata = np.loadtxt(inp, usecols=[1])
-	yerr = np.loadtxt(inp, usecols=[2])
+	try:
+		xdata = np.loadtxt(inp, usecols=[0])
+		ydata = np.loadtxt(inp, usecols=[1])
+		yerror = np.loadtxt(inp, usecols=[2])
+	except:
+		print('Check input dims. Shape (n, 3) containing xdata, ydata and yerror required.')
 
 	# Initialize by calculating grid spacing based on xdata
-	tz = Trapz(xdata)
+	tz = Trapz(ydata, x=xdata)
 
 	# Integrate using the cumulative trapezoidal rule
-	tz.integrate(ydata, init)
+	tz.integrate(init)
 
 	# Propagate errors associated with input ydata
-	tz.propagate(yerr)
+	tz.propagate(yerror)
 
 	np.savetxt('integral.out', np.c_[xdata, tz.integral, tz.error], header='x, F(x), error')
 
 	# Visualize results
 	if(isplot):
-		plt.plot(xdata, tz.integral)
-		plt.fill_between(xdata, tz.integral-tz.error, tz.integral+tz.error, alpha=0.3)
+		plt.plot(xdata, tz.integral, '.-')
+		plt.fill_between(xdata, tz.integral-tz.error, tz.integral+tz.error, alpha=0.25)
 		plt.show()
 
 if __name__ == '__main__':

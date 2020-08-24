@@ -11,26 +11,34 @@ email: rasmus.kronberg@aalto.fi
 import numpy as np
 
 class Trapz:
-	def __init__(self, x):
+	def __init__(self, y, x=None, dx=1.0):
+
+		self.y = y
 
 		# Calculate grid spacing
-		self.dx = np.diff(x)
+		if x is not None:
+			self.dx = np.diff(x)
+		else:
+			self.dx = dx*np.ones(len(y))
 
-	def integrate(self, y, init=0.0):
+	def integrate(self, init=0.0):
 		
+		y = self.y
+		dx = self.dx
 		i = np.arange(len(y)-1)
 
 		# Cumulative trapezoidal rule
-		integral = 0.5*np.cumsum((y[i]+y[i+1])*self.dx)
+		integral = 0.5*np.cumsum((y[i]+y[i+1])*dx)
 		self.integral = np.concatenate(([init], integral))
 	
 	def propagate(self, yerr):
 		
+		dx = self.dx
 		i = np.arange(len(yerr)-2)
 
 		# Single grid spacing at boundaries, two-step elsewhere
-		ddx = self.dx[i]+self.dx[i+1]
-		ddx = np.concatenate(([self.dx[0]], ddx, [self.dx[-1]]))
+		ddx = dx[i]+dx[i+1]
+		ddx = np.concatenate(([dx[0]], ddx, [dx[-1]]))
 
 		# Error propagation of a weighted sum
 		self.error = np.sqrt(0.25*np.cumsum((yerr*ddx)**2))
