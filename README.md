@@ -11,11 +11,11 @@ from trapz_error import Trapz
 # to None) or passing the uniform grid spacing dx (defaults to 1.0)
 tz = Trapz(ydata, x=xdata, dx=dx)
 
-# Given an initial value (defaults to 0.0), integrate using the 
-# cumulative trapezoidal rule
+# Integrate using the cumulative trapezoidal rule and set initial 
+# value (defaults to 0.0)
 tz.integrate(init)
 
-# Propagate errors associated with input ydata
+# Propagate the errors of input ydata
 tz.propagate(yerror)
 ```
 
@@ -25,4 +25,4 @@ Code can also be run from the command line using the ```main.py``` script.
 $ python main.py [-h] -i INPUT [-I INITIAL] [-p]
 ```
 
-Input datafile with shape ```(n, 3)``` and optional initial value are passed as arguments. Optional flag ```-p``` enables a visualization of the result. A dataset ```data/sample.dat``` containing 30 points from a 1st order Gaussian derivative with random errors is provided.
+Input datafile with shape ```(n, 3)``` and optional initial value are passed as arguments. Optional flag ```-p``` enables a visualization of the result. A sample dataset ```data/sample.dat``` containing 30 points of a 1st order Gaussian derivative with random errors is provided.
