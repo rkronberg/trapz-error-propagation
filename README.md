@@ -12,7 +12,7 @@ from trapz_error import Trapz
 tz = Trapz(ydata, x=xdata, dx=dx)
 
 # Integrate using the cumulative trapezoidal rule and set initial 
-# value (defaults to 0.0)
+# value of the integral (defaults to 0.0)
 tz.integrate(init)
 
 # Propagate the errors of input ydata
