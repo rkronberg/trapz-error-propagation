@@ -5,7 +5,6 @@ are computed based on standard uncertainty propagation.
 
 author: Rasmus Kronberg
 email: rasmus.kronberg@aalto.fi
-
 """
 
 import numpy as np
